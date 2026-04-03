@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e4e4e4;
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+
+.active-link {
+  border-bottom: 2px solid #1f6feb;
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.listing-card,
+.detail-card,
+.form-card {
+  background: #fff;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.listing-card h3,
+.detail-card h1 {
+  margin-top: 0;
+}
+
+.risk-tag {
+  background: #fff3cd;
+  border: 1px solid #ffe69c;
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.button-link,
+button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: #1f6feb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-card {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.form-card label {
+  display: grid;
+  gap: 0.3rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+textarea {
+  min-height: 90px;
+}
+
+.admin-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.admin-list li {
+  background: #fff;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.danger-button {
+  background: #d32f2f;
+}
+
+.muted-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.error-text {
+  color: #d32f2f;
+  font-weight: 600;
+}
