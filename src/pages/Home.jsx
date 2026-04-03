@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ListingCard from '../components/ListingCard';
-import { getListings } from '../services/api';
+import { getAllListings } from '../services/api';
 
 function Home() {
   const [listings, setListings] = useState([]);
@@ -13,19 +13,8 @@ function Home() {
         setLoading(true);
         setError('');
 
-        const response = await getListings();
-        const payload = response.data;
-
-        // API çıktısı farklı şekillerde gelebilirse sade bir normalizasyon yapıyoruz.
-        const normalizedListings = Array.isArray(payload)
-          ? payload
-          : Array.isArray(payload?.listings)
-            ? payload.listings
-            : Array.isArray(payload?.data)
-              ? payload.data
-              : [];
-
-        setListings(normalizedListings);
+        const res = await getAllListings();
+        setListings(res.data);
       } catch {
         setError('İlanlar alınırken bir hata oluştu.');
       } finally {
@@ -36,24 +25,16 @@ function Home() {
     fetchListings();
   }, []);
 
-  if (loading) {
-    return <p>Yükleniyor...</p>;
-  }
-
-  if (error) {
-    return <p className="error-text">{error}</p>;
-  }
-
-  if (!listings.length) {
-    return <p>İlan bulunamadı</p>;
-  }
+  if (loading) return <p>Yükleniyor...</p>;
+  if (error) return <p className="error-text">{error}</p>;
+  if (!listings.length) return <p>İlan bulunamadı</p>;
 
   return (
     <section>
       <h1>Ana Sayfa</h1>
       <div className="listings-grid">
         {listings.map((listing) => (
-          <ListingCard key={listing._id || listing.id} listing={listing} />
+          <ListingCard key={listing._id} listing={listing} />
         ))}
       </div>
     </section>

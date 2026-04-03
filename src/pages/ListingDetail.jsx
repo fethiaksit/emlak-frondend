@@ -10,29 +10,12 @@ function ListingDetail() {
 
   useEffect(() => {
     const fetchListing = async () => {
-      if (!id) {
-        console.log('ListingDetail hatası: route parametresi id undefined.');
-        setError('İlan bulunamadı');
-        setLoading(false);
-        return;
-      }
-
       try {
         setLoading(true);
         setError('');
 
-        const response = await getListingById(id);
-        const payload = response.data;
-        const listingData = payload?.listing || payload?.data || payload || null;
-
-        if (!listingData || !listingData._id) {
-          console.log('ListingDetail hatası: geçerli ilan verisi bulunamadı.', payload);
-          setError('İlan bulunamadı');
-          setListing(null);
-          return;
-        }
-
-        setListing(listingData);
+        const res = await getListingById(id);
+        setListing(res.data);
       } catch {
         setError('İlan detayı alınırken bir hata oluştu.');
       } finally {
@@ -43,17 +26,9 @@ function ListingDetail() {
     fetchListing();
   }, [id]);
 
-  if (loading) {
-    return <p>Yükleniyor...</p>;
-  }
-
-  if (error) {
-    return <p className="error-text">{error}</p>;
-  }
-
-  if (!listing) {
-    return <p>İlan bulunamadı</p>;
-  }
+  if (loading) return <p>Yükleniyor...</p>;
+  if (error) return <p className="error-text">{error}</p>;
+  if (!listing) return <p>İlan bulunamadı</p>;
 
   return (
     <section className="detail-card">
@@ -80,6 +55,7 @@ function ListingDetail() {
         <strong>Oluşturulma Tarihi:</strong>{' '}
         {listing.createdAt ? new Date(listing.createdAt).toLocaleString('tr-TR') : '-'}
       </p>
+
       <Link to="/" className="button-link">
         Ana Sayfa
       </Link>
