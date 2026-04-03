@@ -14,16 +14,25 @@ function ListingDetail() {
         setLoading(true);
         setError('');
 
+        console.log('Listing detail id:', id);
         const res = await getListingById(id);
+        console.log('Listing detail response:', res.data);
+
         setListing(res.data);
-      } catch {
+      } catch (err) {
+        console.log('Listing detail error response:', err.response?.data);
         setError('İlan detayı alınırken bir hata oluştu.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchListing();
+    if (id) {
+      fetchListing();
+    } else {
+      setError('İlan detayı alınırken bir hata oluştu.');
+      setLoading(false);
+    }
   }, [id]);
 
   if (loading) return <p>Yükleniyor...</p>;
