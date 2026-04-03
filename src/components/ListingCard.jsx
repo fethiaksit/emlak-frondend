@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom';
 
 function ListingCard({ listing }) {
+  if (!listing) {
+    console.log('ListingCard hatası: listing verisi yok.');
+    return <p>İlan bulunamadı</p>;
+  }
+
+  if (!listing._id) {
+    console.log('ListingCard hatası: listing._id undefined.', listing);
+    return <p>İlan bulunamadı</p>;
+  }
+
   return (
     <article className="listing-card">
       <h3>{listing.title}</h3>

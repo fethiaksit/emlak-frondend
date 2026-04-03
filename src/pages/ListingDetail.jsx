@@ -10,11 +10,29 @@ function ListingDetail() {
 
   useEffect(() => {
     const fetchListing = async () => {
+      if (!id) {
+        console.log('ListingDetail hatası: route parametresi id undefined.');
+        setError('İlan bulunamadı');
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         setError('');
+
         const response = await getListingById(id);
-        setListing(response.data || null);
+        const payload = response.data;
+        const listingData = payload?.listing || payload?.data || payload || null;
+
+        if (!listingData || !listingData._id) {
+          console.log('ListingDetail hatası: geçerli ilan verisi bulunamadı.', payload);
+          setError('İlan bulunamadı');
+          setListing(null);
+          return;
+        }
+
+        setListing(listingData);
       } catch {
         setError('İlan detayı alınırken bir hata oluştu.');
       } finally {
